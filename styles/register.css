@@ -1,0 +1,120 @@
+@font-face {
+    font-family: 'Klavika';
+    src: url('../resources/klavika-bold.otf') format("opentype");
+}
+.classic-btn {
+    border-style: solid;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+    border-top-color: #D9DFEA;
+    border-left-color: #D9DFEA;
+    border-bottom-color: #0e1f5b;
+    border-right-color: #0e1f5b;
+    background-color: #3b5998;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+    cursor: pointer;
+}
+.classic-btn:hover {
+    background-color: #344c80;
+}
+.classic-btn:active {
+    background-color: #314979;
+}
+body {
+    overflow: hidden;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+    margin: 5px;
+}
+.container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+header {
+    display: flex;
+    height: 4rem;
+    width: 53.2rem;
+    color: white;
+}
+.logo {
+    width: 9rem;
+    height: 4rem;
+    border-radius: 0.5rem 0 0 0.2rem;
+}
+.top {
+    display: flex;
+    padding: 0 0.5rem 0 0.5rem;
+    border-top-right-radius: 0.2rem;
+    background-color: #3B5998;
+    align-items: center;
+    width: 760px;
+    justify-content: space-between;
+}
+.top h2 {
+    font-family: 'Klavika';
+}
+.top .links a{
+    color: #D8DFEA;
+    text-decoration: none;
+    padding: 0.3rem;
+    cursor: pointer;
+}
+.top .links a:hover {
+    color: white;
+    background-color: #526DA4;
+}
+.below {
+    display: flex;
+    justify-content: space-between;
+    width: 53.2rem;
+}
+.inputs {
+    display: flex;
+    flex-direction: column;
+}
+.inputs label {
+    padding: 0px 0px 2px;
+    margin: 0px;
+    color: gray;
+    font-weight: bold;
+    cursor: text;
+    font-size: 13px;
+}
+.inputs input {
+    width: 115px;
+}
+.welcome {
+    width: 44.9rem;
+}
+.welcome_header {
+    background-color: #6d84b4;
+    color: white;
+    font-weight: bold;
+    padding: 0.6rem;
+}
+.about {
+    font-size: 12px;
+    padding: 10px 20px;
+    border-bottom: solid 1px #3B5998;
+    border-left: solid 1px #D8DFEA;
+    border-right: solid 1px #D8DFEA;
+}
+.about .btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+footer {
+    text-align: center;
+    font-size: 11px;
+}
+.footer-links a {
+    text-decoration: none;
+    margin-right: 0.6rem;
+}
