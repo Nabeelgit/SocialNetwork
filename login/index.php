@@ -24,12 +24,12 @@
             <div class="forms">
                 <form method="post" action="../index.php" class="inputs">
                     <label for="email">Email:</label>
-                    <input id="email" name="email" autocomplete="off">
+                    <input id="email" name="email">
                     <label for="password">Password:</label>
-                    <input id="password" name="password" autocomplete="off">
+                    <input id="password" name="password" type="password">
+                    <p class="warning" style="font-size: 14px"></p>
                     <div style="display: flex; margin-top: 0.3rem">
                         <button class="classic-btn" style="width: 3rem">Login</button>
-                        <button class="classic-btn" style="width: 3.5rem" class="register">Register</button>
                     </div>
                 </form>
             </div>
@@ -47,10 +47,6 @@
                             <li>See how people know each other.</li>
                             <li>Make groups and events with your friends.</li>
                         </ul>
-                        <div class="btns">
-                            <button class="classic-btn" style="width: 3rem; margin-right: 0.4rem">Login</button>
-                            <button class="classic-btn" style="width: 3.5rem" class="register">Register</button> 
-                        </div>
                     </div>
                 </div>
                 <footer>
@@ -64,10 +60,11 @@
                         <a>developers</a>
                     </div>
                     <p>a (you know who) production</p>
-                    <p>The Social Network &copy; 2023</p>
+                    <p>The Social Network &copy; <?php echo date('Y')?></p>
                 </footer>
             </div>
         </div>
     </div>
+    <script src="./scripts/login.js"></script>
 </body>
 </html>

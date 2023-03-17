@@ -8,6 +8,6 @@ if(isset($_POST['name'])){
     $status = $_POST['status'];
     $password = $_POST['password'];
     $table->insertOne(['name'=>$name, 'email'=>$email, 'status'=>$status, 'password'=>$password]);
-    return true;
+    echo true;
 }
 ?>

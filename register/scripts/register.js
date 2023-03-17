@@ -21,8 +21,10 @@ document.addEventListener('DOMContentLoaded', function(){
     const retyped_password = document.getElementById('repassword');
     const termCheck = document.getElementById('termsCheck');
     const warning = document.querySelector('.warning');
+    const form = document.getElementById('register-form');
     const inputs_to_check = [['Name', name], ['Email', email], ['Password', password], ['Retyped password', retyped_password]];
-    document.getElementById('register-form').addEventListener('submit', function(e){
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
         const values = {
             name: name.value.trim().toLowerCase(),
             status: status.value,
@@ -37,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function(){
                     failed_tests = true;
                     warning.style.display = 'block';
                     warning.innerText = inputs_to_check[j][0] + ' must be filled out!';
-                    e.preventDefault();
                     break;
                 } else {
                     warning.style.display = 'none';
@@ -49,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 warning.style.display = 'block';
                 warning.innerText = 'Password has to be more than 3 characters!';
                 failed_tests = true;
-                e.preventDefault();
                 break;
             } else {
                 warning.style.display = 'none';
@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 warning.style.display = 'block';
                 warning.innerText = 'You must agree to terms and conditions!';
                 failed_tests = true;
-                e.preventDefault();
                 break;
             } else {
                 warning.style.display = 'none';
@@ -69,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 warning.style.display = 'block';
                 warning.innerText = 'Passwords do not match';
                 failed_tests = true;
-                e.preventDefault();
                 break;
             } else {
                 warning.style.display = 'none';
@@ -79,33 +77,30 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         if(!failed_tests){
             // check if name and email exists in db
-            let req_uri = 'name='+encodeURIComponent(values.name)+'&email='+encodeURIComponent(values.email);
+            let req_uri = 'email='+encodeURIComponent(values.email);
             sendRequest('./scripts/doublechecker.php', req_uri, function(res){
                 if(res){
                     warning.style.display = 'block';
-                    warning.innerText = 'Someone has already registered with this name and email!';
-                    e.preventDefault();
+                    warning.innerText = 'Someone has already registered with this email!';
                     failed_tests = true;
                 } else {
                     warning.style.display = 'none';
                     warning.innerText = '';
+                    // store in db
+                    req_uri += '&name='+encodeURIComponent(values.name)+'&status='+encodeURIComponent(values.status)+'&password='+encodeURIComponent(values.password);
+                    sendRequest('./scripts/register.php', req_uri, function(res){
+                        if(res !== true){
+                            console.log('ok');  
+                            warning.style.display = 'none';
+                            warning.innerText = '';
+                            form.submit();
+                        } else {
+                            warning.style.display = 'block';
+                            warning.innerText = res;
+                        }
+                    });
                 }
             });
-            if(!failed_tests){
-                // store in db
-                req_uri += '&status='+encodeURIComponent(values.status)+'&password='+encodeURIComponent(values.password);
-                sendRequest('./scripts/register.php', req_uri, function(res){
-                    if(res){
-                        warning.style.display = 'none';
-                        warning.innerText = '';
-                        document.getElementById('register-form').submit();
-                    } else {
-                        e.preventDefault();
-                        warning.style.display = 'block';
-                        warning.innerText = 'There was an error registering please try again later';
-                    }
-                });
-            }
         }
     })
 })

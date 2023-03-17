@@ -19,8 +19,6 @@
             font-weight: bold;
         }
         .warning {
-            display: none;
-            color: red;
             text-align: center;
         }
     </style>
@@ -47,7 +45,6 @@
                     <input name="password" autocomplete="off">
                     <div style="display: flex; margin-top: 0.3rem">
                         <button class="classic-btn" style="width: 3rem">Login</button>
-                        <button class="classic-btn" style="width: 3.5rem" class="register">Register</button>
                     </div>
                 </form>
             </div>
@@ -99,7 +96,7 @@
                         <a>developers</a>
                     </div>
                     <p>a (you know who) production</p>
-                    <p>The Social Network &copy; 2023</p>
+                    <p>The Social Network &copy; <?php echo date('Y')?></p>
                 </footer>
             </div>
         </div>
