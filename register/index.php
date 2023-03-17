@@ -4,13 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - The Social Network</title>
-    <link rel="stylesheet" type="text/css" href="../styles/register.css">
+    <title>Register - The Social Network</title>
+    <link rel="stylesheet" type="text/css" href="../styles/login.css">
+    <style>
+        div.form-grid {
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: space-around;
+            justify-items: start;
+            grid-row-gap: 0.3rem;
+        }
+        form label {
+            color: gray;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <img class="logo" src="../resources/mountain.jpg">
+            <img class="logo" src="../resources/logo.png">
             <div class="top">
                 <h2>The Social Network</h2>
                 <div class="links">
@@ -29,28 +42,44 @@
                     <input id="password" name="password" autocomplete="off">
                     <div style="display: flex; margin-top: 0.3rem">
                         <button class="classic-btn" style="width: 3rem">Login</button>
-                        <button class="classic-btn" style="width: 3.5rem">Register</button> 
+                        <button class="classic-btn" style="width: 3.5rem" class="register">Register</button>
                     </div>
                 </form>
             </div>
             <div class="other">
                 <div class="welcome">
                     <div class="welcome_header">
-                        Welcome to the social network!
+                        Registration
                     </div>
                     <div class="about">
-                        <p style="font-weight: bold;">The Social Network is an online directory that connects people through social networks.</p>
-                        <p>The site is open to a lot of places, but not everywhere yet. We're working on it.</p>
-                        <p>You can use The Social Network to: </p>
-                        <ul>
-                            <li>Look up people around you.</li>
-                            <li>See how people know each other.</li>
-                            <li>Make groups and events with your friends.</li>
-                        </ul>
-                        <div class="btns">
-                            <button class="classic-btn" style="width: 3rem; margin-right: 0.4rem">Login</button>
-                            <button class="classic-btn" style="width: 3.5rem">Register</button> 
-                        </div>
+                        <p>To register for the Social Network, just fill in the fields below. You will have a chance to enter additional information and submit a picture once you have registered.</p>
+                        <form method="post" action="../index.php">
+                            <div class="form-grid">
+                                <label>Name: </label>
+                                <input name="name">
+                                <label>Status:</label>
+                                <select>
+                                    <option value="young">High school or below</option>
+                                    <option value="undergrad">Undergrad</option>
+                                    <option value="graduate">Graduated</option>
+                                    <option value="nodegree">No degree</option>
+                                </select>
+                                <label>Email:</label>
+                                <input name="email">
+                            <p>You can choose any password. It should not be your school password.</p>
+                            <span></span>
+                                <label>Password:</label>
+                                <input name="password" autocomplete="off">
+                                <label>Retype Password:</label>
+                                <input name="repassword" autocomplete="off">
+                                <div style="display: flex">
+                                    <input type="checkbox" style="margin: 0 0.5rem 0 0"> <span>I have read and understood the <a>Terms of use</a>, and I agreed to them</span>
+                                </div>
+                            </div>
+                            <div class="btns" style="margin-top: 1rem">
+                                <button class="classic-btn" style="width: 5.3rem" class="register">Register now!</button> 
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <footer>
@@ -63,7 +92,7 @@
                         <a>privacy</a>
                         <a>developers</a>
                     </div>
-                    <p>a (you know who) Production</p>
+                    <p>a (you know who) production</p>
                     <p>The Social Network &copy; 2023</p>
                 </footer>
             </div>
