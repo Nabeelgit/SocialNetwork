@@ -18,7 +18,7 @@
             color: gray;
             font-weight: bold;
         }
-        .warning {
+        #register-form .warning {
             text-align: center;
         }
     </style>
@@ -40,9 +40,10 @@
             <div class="forms">
                 <form method="post" action="../index.php" class="inputs">
                     <label for="email">Email:</label>
-                    <input name="email" autocomplete="off">
+                    <input name="email" id="email">
                     <label for="password">Password:</label>
-                    <input name="password" autocomplete="off">
+                    <input name="password" type="password" id="password">
+                    <p class="warning" style="font-size: 14px"></p>
                     <div style="display: flex; margin-top: 0.3rem">
                         <button class="classic-btn" style="width: 3rem">Login</button>
                     </div>
@@ -102,5 +103,6 @@
         </div>
     </div>
     <script src="./scripts/register.js"></script>
+    <script src="../login/scripts/login.js"></script>
 </body>
 </html>

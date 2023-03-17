@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const password = document.getElementById('password');
     const retyped_password = document.getElementById('repassword');
     const termCheck = document.getElementById('termsCheck');
-    const warning = document.querySelector('.warning');
+    const warning = document.querySelector('#register-form .warning');
     const form = document.getElementById('register-form');
     const inputs_to_check = [['Name', name], ['Email', email], ['Password', password], ['Retyped password', retyped_password]];
     form.addEventListener('submit', function(e){
@@ -89,8 +89,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     // store in db
                     req_uri += '&name='+encodeURIComponent(values.name)+'&status='+encodeURIComponent(values.status)+'&password='+encodeURIComponent(values.password);
                     sendRequest('./scripts/register.php', req_uri, function(res){
-                        if(res !== true){
-                            console.log('ok');  
+                        if(res !== true){ 
                             warning.style.display = 'none';
                             warning.innerText = '';
                             form.submit();

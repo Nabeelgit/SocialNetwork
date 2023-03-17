@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', function(){
         xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xml.send(body)
     }
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const warning = document.querySelector('p.warning');
-    const form = document.querySelector('.forms .inputs');
+    const email = document.querySelector('.inputs #email');
+    const password = document.querySelector('.inputs #password');
+    const warning = document.querySelector('.inputs .warning');
+    const form = document.querySelector('.inputs');
     form.addEventListener('submit', function(e){
         e.preventDefault();
         const values = {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function(){
             password: password.value.trim()
         };
         if(values.email !== '' && values.password !== ''){
-            sendRequest('./scripts/login.php', 'email='+encodeURIComponent(values.email)+'&password='+encodeURIComponent(values.password), function(res){
+            sendRequest('../login/scripts/login.php', 'email='+encodeURIComponent(values.email)+'&password='+encodeURIComponent(values.password), function(res){
                 if(res == 1){
                     warning.style.display = 'block';
                     warning.innerText = 'Incorrect username or password';
