@@ -18,6 +18,11 @@
             color: gray;
             font-weight: bold;
         }
+        .warning {
+            display: none;
+            color: red;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -37,9 +42,9 @@
             <div class="forms">
                 <form method="post" action="../index.php" class="inputs">
                     <label for="email">Email:</label>
-                    <input id="email" name="email" autocomplete="off">
+                    <input name="email" autocomplete="off">
                     <label for="password">Password:</label>
-                    <input id="password" name="password" autocomplete="off">
+                    <input name="password" autocomplete="off">
                     <div style="display: flex; margin-top: 0.3rem">
                         <button class="classic-btn" style="width: 3rem">Login</button>
                         <button class="classic-btn" style="width: 3.5rem" class="register">Register</button>
@@ -53,31 +58,32 @@
                     </div>
                     <div class="about">
                         <p>To register for the Social Network, just fill in the fields below. You will have a chance to enter additional information and submit a picture once you have registered.</p>
-                        <form method="post" action="../index.php">
+                        <form method="post" action="../index.php" id="register-form">
                             <div class="form-grid">
                                 <label>Name: </label>
-                                <input name="name">
+                                <input name="name" id="name">
                                 <label>Status:</label>
-                                <select>
-                                    <option value="young">High school or below</option>
-                                    <option value="undergrad">Undergrad</option>
-                                    <option value="graduate">Graduated</option>
-                                    <option value="nodegree">No degree</option>
+                                <select id="status">
+                                    <option value="High school or below">High school or below</option>
+                                    <option value="Undergrad">Undergrad</option>
+                                    <option value="Graduate">Graduated</option>
+                                    <option value="No degree">No degree</option>
                                 </select>
                                 <label>Email:</label>
-                                <input name="email">
+                                <input name="email" id="email">
                             <p>You can choose any password. It should not be your school password.</p>
                             <span></span>
                                 <label>Password:</label>
-                                <input name="password" autocomplete="off">
+                                <input name="password" type="password" id="password">
                                 <label>Retype Password:</label>
-                                <input name="repassword" autocomplete="off">
+                                <input name="repassword" type="password" id="repassword">
                                 <div style="display: flex">
-                                    <input type="checkbox" style="margin: 0 0.5rem 0 0"> <span>I have read and understood the <a>Terms of use</a>, and I agreed to them</span>
+                                    <input type="checkbox" style="margin: 0 0.5rem 0 0" id="termsCheck"> <span>I have read and understood the <a>Terms of use</a>, and I agreed to them</span>
                                 </div>
                             </div>
+                            <p class="warning"></p>
                             <div class="btns" style="margin-top: 1rem">
-                                <button class="classic-btn" style="width: 5.3rem" class="register">Register now!</button> 
+                                <button class="classic-btn" style="width: 5.3rem" class="register" id="register-btn">Register now!</button> 
                             </div>
                         </form>
                     </div>
@@ -98,5 +104,6 @@
             </div>
         </div>
     </div>
+    <script src="./scripts/register.js"></script>
 </body>
 </html>

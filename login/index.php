@@ -14,8 +14,8 @@
             <div class="top">
                 <h2>The Social Network</h2>
                 <div class="links">
-                    <a href="../login/">login</a>
-                    <a href="./">register</a>
+                    <a href="./">login</a>
+                    <a href="../register">register</a>
                     <a>help</a>
                 </div>
             </div>
