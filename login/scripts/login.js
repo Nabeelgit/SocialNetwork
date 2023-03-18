@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function(){
         xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xml.send(body)
     }
-    const email = document.querySelector('.inputs #email');
-    const password = document.querySelector('.inputs #password');
+    const email = document.querySelector('.inputs .email');
+    const password = document.querySelector('.inputs .password');
     const warning = document.querySelector('.inputs .warning');
     const form = document.querySelector('.inputs');
     form.addEventListener('submit', function(e){

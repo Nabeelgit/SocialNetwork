@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - The Social Network</title>
-    <link rel="stylesheet" type="text/css" href="../styles/login.css">
+    <link rel="stylesheet" type="text/css" href="../styles/style.css">
 </head>
 <body>
     <div class="container">
@@ -22,11 +22,11 @@
         </header>
         <div class="below">
             <div class="forms">
-                <form method="post" action="../index.php" class="inputs">
+                <form method="post" action="../" class="inputs">
                     <label for="email">Email:</label>
-                    <input id="email" name="email">
+                    <input class="email" name="email">
                     <label for="password">Password:</label>
-                    <input id="password" name="password" type="password">
+                    <input class="password" name="password" type="password">
                     <p class="warning" style="font-size: 14px"></p>
                     <div style="display: flex; margin-top: 0.3rem">
                         <button class="classic-btn" style="width: 3rem">Login</button>

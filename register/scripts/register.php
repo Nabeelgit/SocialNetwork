@@ -7,7 +7,29 @@ if(isset($_POST['name'])){
     $email = $_POST['email'];
     $status = $_POST['status'];
     $password = $_POST['password'];
-    $table->insertOne(['name'=>$name, 'email'=>$email, 'status'=>$status, 'password'=>$password]);
+    $table->insertOne([
+    'name'=>$name, 
+    'email'=>$email, 
+    'status'=>$status, 
+    'password'=>$password, 
+    'photo'=>'', 
+    'location' => 'Unspecified',
+    'sex'=>'Unspecified',
+    'rls' => 'Unspecified',//relationship status
+    'birthday' => 'Unspecified',
+    'hometown' => 'Unspecified',
+    'activities' => 'Unspecified',
+    'interests' => 'Unspecified',
+    'books' => 'Unspecified',
+    'quotes' => 'Unspecified',
+    'about' => 'Unspecified',
+    'education' => 'Unspecified',
+    'company' => 'Unspecified',
+    'period' => 'Unspecified',
+    ]);
+    session_start();
+    $_SESSION['email'] = $email;
+    session_write_close();
     echo true;
 }
 ?>

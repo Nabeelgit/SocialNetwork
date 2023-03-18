@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - The Social Network</title>
-    <link rel="stylesheet" type="text/css" href="../styles/login.css">
+    <link rel="stylesheet" type="text/css" href="../styles/style.css">
     <style>
         div.form-grid {
             display: grid;
@@ -40,9 +40,9 @@
             <div class="forms">
                 <form method="post" action="../index.php" class="inputs">
                     <label for="email">Email:</label>
-                    <input name="email" id="email">
+                    <input name="email" class="email">
                     <label for="password">Password:</label>
-                    <input name="password" type="password" id="password">
+                    <input name="password" type="password" class="password">
                     <p class="warning" style="font-size: 14px"></p>
                     <div style="display: flex; margin-top: 0.3rem">
                         <button class="classic-btn" style="width: 3rem">Login</button>
