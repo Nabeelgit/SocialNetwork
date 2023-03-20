@@ -26,6 +26,7 @@ if(isset($_POST['name'])){
     'education' => 'Unspecified',
     'company' => 'Unspecified',
     'period' => 'Unspecified',
+    'work_desc' => 'Unspecified'
     ]);
     session_start();
     $_SESSION['email'] = $email;

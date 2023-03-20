@@ -16,6 +16,7 @@ function createProfile($user){
     $education = $user['education'] ?? 'Unspecified';
     $company = $user['company'] ?? 'Unspecified';
     $period = $user['period'] ?? 'Unspecified';
+    $work_desc = $user['work_desc'] ?? 'Unspecified';
     ?>
         <div class="welcome fill-available">
             <div class="welcome_header">
@@ -24,30 +25,30 @@ function createProfile($user){
             </div>
             <div class="about">
                 <div class="left">
-                    <img src="<?php echo !isset($user['photo']) || $user['photo'] === '' ? '../resources/default.png' : $user['photo'] ?>">
+                    <img src="<?php echo !isset($user['photo']) || $user['photo'] === '' ? '../resources/default.png' : $user['photo'] ?>" class="profile_photo">
                     <div class="action_div">
-                        <span>View photos</span>
+                        <a>View photos</a>
                     </div>
                     <div class="action_div">
-                        <span>View friends</span>
+                        <a>View friends</a>
                     </div>
                     <div class="action_div">
-                        <span>Send message</span>
+                        <a>Send message</a>
                     </div>
                     <div class="action_div">
-                        <span>Poke</span>
+                        <a>Poke</a>
                     </div>
                     <div class="action_div">
-                        <span>Add as friend</span>
+                        <a>Add as friend</a>
                     </div>
                     <div class="action_div">
-                        <span>Report</span>
+                        <a>Report</a>
                     </div>
-                    <div class="title_div">
+                    <div class="title_div" style="margin-top: 0.6rem">
                         Status
                     </div>
                     <div class="desc">
-
+                        Is not accepting messages right now...
                     </div>
                 </div> 
                 <div class="right">
@@ -66,7 +67,7 @@ function createProfile($user){
                         <div class="info_title">Last update: </div>
                         <div class="info">...</div>
                         <div class="header_div">
-                            Account info
+                            Basic info
                         </div>
                         <div></div>
                         <div class="info_title">Sex: </div>
@@ -111,8 +112,10 @@ function createProfile($user){
                         <div></div>
                         <div class="info_title">Company: </div>
                         <div class="info"><?php echo $company?></div>
-                        <div class="info_title">Period: </div>
+                        <div class="info_title">Time Period: </div>
                         <div class="info"><?php echo $period?></div>
+                        <div class="info_title">Description: </div>
+                        <div class="info"><?php echo $work_desc?></div>
                     </div>
                 </div>
             </div>

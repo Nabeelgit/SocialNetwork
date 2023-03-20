@@ -1,0 +1,53 @@
+.about {
+    display: flex;
+    width: -webkit-fill-available;
+    width: -moz-fill-available;
+}
+.left {
+    width: 19rem;
+    margin: 0;
+}
+.profile_photo {
+    width: 19rem;
+    height: 11rem;
+    margin-bottom: 0.7rem;
+}
+.action_div {
+    border-bottom: 1px solid black;
+    padding: 0 1rem 0.3rem 0.2rem;
+    width: -webkit-fill-available;
+    width: -moz-fill-available;
+}
+.desc {
+    font-size: 0.9rem;
+    margin-top: 0.7rem;
+    text-align: center;
+}
+.title_div {
+    width: -webkit-fill-available;
+    width: -moz-fill-available;
+    padding: 0 1rem 0.3rem 0.5rem;
+    border-top: 1px solid darkblue;
+    background-color: #D3DDEC;
+    color: darkblue;
+    font-weight: bold;
+}
+.right {
+    width: -webkit-fill-available;
+    width: -moz-fill-available;
+    margin-left: 1rem;
+}
+.right .information {
+    padding: 0.5rem 1rem 0.3rem 0.5rem;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.header_div {
+    font-weight: bold;
+    color: rgb(14, 57, 157);
+    margin-bottom: 0.2rem;
+}
+.info_title {
+    color: gray;
+    margin-bottom: 0.2rem;
+}
