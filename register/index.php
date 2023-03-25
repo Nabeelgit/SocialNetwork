@@ -38,7 +38,7 @@
         </header>
         <div class="below">
             <div class="forms">
-                <form method="post" action="../index.php" class="inputs">
+                <form method="post" action="../" class="inputs">
                     <label for="email">Email:</label>
                     <input name="email" class="email">
                     <label for="password">Password:</label>

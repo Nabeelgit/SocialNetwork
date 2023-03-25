@@ -6,6 +6,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     $match = $table->findOne(['email'=> $_POST['email'], 'password'=>$_POST['password']]);
     if($match === null){
         echo 1;
+    } else {
         session_start();
         $_SESSION['email'] = $_POST['email'];
         session_write_close();

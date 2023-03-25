@@ -65,6 +65,9 @@
             $does_not_exist = true;
         }
         $does_exist = !$does_not_exist;
+        session_start();
+        $my_email = $_SESSION['email'] ?? $_COOKIE['email'] ?? null;
+        $is_my_acc = $my_email === $email;
     ?>
     <title><?php echo $name?> - The Social Network</title>
 </head>
@@ -87,24 +90,50 @@
         <div class="below fill-available">
                 <div class="forms">
                     <input type="search" placeholder="Search" id="search-inp">
+                    <div class="my_links" style="margin-top: 1rem">
+                        <div class="action_div">
+                            <a><span>My Profile</span>
+                                <?php 
+                                if($is_my_acc){
+                                    ?>
+                                    <span id="editable">edit</span>
+                                    <?php
+                                }?>
+                            </a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Friends</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Photos</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Notes</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Groups</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Events</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Messages</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Account</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Privacy</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="other fill-available">
                     <?php
                     include './profile.php';
-                    if(!$does_not_exist){
-                        createProfile(['name' => 'User does not exist', 'email' => 'None', 'status' => 'This profile might have been deleted', 'location'=>'Somewhere', 'rls'=>'Hmmm...', 'birthday'=>'Someday', 'hometown'=>'Maybe here or maybe there', 'activites' => 'Not existing', 'interests'=>'Being nonexistent', 'books' => 'How to be nonexistent', 'quotes'=>'if you\'re nonexistent... stay nonexistent', 'about'=>'A person that does not exist', 'education'=>'Nonexistent high', 'company' => 'unspecified', 'period'=>'0 years - 0 years']);
+                    if($does_not_exist){
+                        createProfile(['name' => 'User does not exist', 'email' => 'None', 'status' => 'This profile might have been deleted', 'location'=>'Somewhere', 'rls'=>'Hmmm...', 'birthday'=>'Someday', 'hometown'=>'Maybe here or maybe there', 'activites' => 'Not existing', 'interests'=>'Being nonexistent', 'books' => 'How to be nonexistent', 'quotes'=>'if you\'re nonexistent... stay nonexistent', 'about'=>'A person that does not exist', 'education'=>'Nonexistent high', 'company' => 'unspecified']);
                     } else {
-                        ?>
-                        <div class="welcome fill-available">
-                            <div class="welcome_header">
-                                <span><?php echo $name?>'s Profile</span>
-                                <span><?php echo $user['status']?></span>
-                            </div>
-                            <div class="about">
-                                
-                            </div>
-                        </div>
-                        <?php
+                        createProfile($user);
                     }
                     ?>
                 </div>

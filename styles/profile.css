@@ -1,3 +1,23 @@
+.my_links .action_div {
+    padding-left: 0;
+    font-size: 15px;
+}
+#editable {
+    color: gray;
+    margin-left: 3rem;
+    font-size: 13px;
+    cursor: pointer;
+}
+.edit-div {
+    display: none;
+    position: absolute;
+    top: 17%;
+    left: 40%;
+    padding: 1rem;
+    border: 1px solid darkgray;
+    border-radius: 1rem;
+    background-color: white;
+}
 .about {
     display: flex;
     width: -webkit-fill-available;
@@ -13,10 +33,16 @@
     margin-bottom: 0.7rem;
 }
 .action_div {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(219, 218, 218);
     padding: 0 1rem 0.3rem 0.2rem;
     width: -webkit-fill-available;
     width: -moz-fill-available;
+    margin-bottom: 0.2rem;
+}
+.action_div a {
+    color: #0b59be;
+    text-decoration: none;
+    cursor: pointer;
 }
 .desc {
     font-size: 0.9rem;
@@ -40,7 +66,10 @@
 .right .information {
     padding: 0.5rem 1rem 0.3rem 0.5rem;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 12rem auto;
+}
+.info {
+    text-transform: capitalize;
 }
 .header_div {
     font-weight: bold;
