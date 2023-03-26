@@ -1,0 +1,49 @@
+.forms {
+    margin-top: 1rem;
+}
+.search-form {
+    display: flex;
+}
+.search-inp {
+    outline: 0;
+    border: 1px solid gray;
+    border-radius: 0;
+}
+.results {
+    display: grid;
+    justify-content: center;
+    column-gap: 3rem;
+    row-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, 27rem);
+}
+.result {
+    border: 1px solid rgb(138, 138, 138);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    width: fit-content;
+}
+.result .profile-picture {
+    height: 114px;
+    width: 141px;
+}
+.result .info h3, .result .info h4 {
+    margin-top: 0;
+}
+.result .info h4 {
+    font-size: 16px;
+    font-weight: normal;
+}
+.info {
+    margin-left: 1rem;
+}
+.name a {
+    text-transform: capitalize;
+    font-size: 25px;
+    margin-bottom: 1rem;
+    color: #2f5ab2;
+    text-decoration: none;
+}
+.name a:hover {
+    text-decoration: underline;
+}

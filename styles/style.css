@@ -18,6 +18,9 @@
     font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
     cursor: pointer;
 }
+.invisible {
+    display: none;
+}
 .classic-btn:hover {
     background-color: #344c80;
 }
@@ -121,4 +124,20 @@ footer {
 .warning {
     display: none;
     color: red;
+}
+.my_links .action_div {
+    padding-left: 0;
+    font-size: 15px;
+}
+.action_div {
+    border-bottom: 1px solid rgb(219, 218, 218);
+    padding: 0 1rem 0.3rem 0.2rem;
+    width: -webkit-fill-available;
+    width: -moz-fill-available;
+    margin-bottom: 0.2rem;
+}
+.action_div a {
+    color: #0b59be;
+    text-decoration: none;
+    cursor: pointer;
 }

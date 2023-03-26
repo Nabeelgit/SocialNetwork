@@ -1,7 +1,3 @@
-.my_links .action_div {
-    padding-left: 0;
-    font-size: 15px;
-}
 #editable {
     color: gray;
     margin-left: 3rem;
@@ -31,18 +27,6 @@
     width: 19rem;
     height: 11rem;
     margin-bottom: 0.7rem;
-}
-.action_div {
-    border-bottom: 1px solid rgb(219, 218, 218);
-    padding: 0 1rem 0.3rem 0.2rem;
-    width: -webkit-fill-available;
-    width: -moz-fill-available;
-    margin-bottom: 0.2rem;
-}
-.action_div a {
-    color: #0b59be;
-    text-decoration: none;
-    cursor: pointer;
 }
 .desc {
     font-size: 0.9rem;
