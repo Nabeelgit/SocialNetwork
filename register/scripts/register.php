@@ -1,6 +1,12 @@
 <?php
 include '../../vendor/autoload.php';
 $conn = new MongoDB\Client('mongodb://localhost:27017');
+try {
+    $dbs = $conn->listDatabases();
+} catch(Exception $e){
+    echo 'An error occurred';
+    exit();
+}
 $table = $conn->selectCollection('TheSocialNetwork', 'users');
 if(isset($_POST['name'])){
     $name = $_POST['name'];
@@ -28,9 +34,6 @@ if(isset($_POST['name'])){
     'work_desc' => 'Unspecified',
     'activity_status' => 'online'
     ]);
-    session_start();
-    $_SESSION['email'] = $email;
-    session_write_close();
     echo true;
 }
 ?>

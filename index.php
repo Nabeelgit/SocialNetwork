@@ -7,12 +7,129 @@
     <?php
     function notLoggedIn(){
         header('Location: ./register');
+        exit();
     }
-    $email = $_POST['email'] ?? $_COOKIE['email'] ?? notLoggedIn();
+    session_start();
+    $email = $_POST['email'] ?? $_COOKIE['email'] ?? $_SESSION['email'] ?? notLoggedIn();
+    // set just in case
+    $_SESSION['email'] = $email;
+    session_write_close();
     ?>
     <title>The Social Network</title>
 </head>
+<link rel="stylesheet" type="text/css" href="./styles/style.css">
+<link rel="stylesheet" type="text/css" href="./styles/home.css">
+<style>
+        .fill-available {
+            width: -webkit-fill-available;
+            width: -moz-fill-available;
+        }
+        .my_links .action_div {
+            max-width: 13rem;
+            padding-left: 0.2rem;
+        }
+        .welcome {
+            margin-left: 34px;
+        }
+        .name a{
+            text-transform: capitalize;
+            font-size: 33px;
+            margin-bottom: 1rem;
+            color: #2f5ab2;
+        }
+    </style>
 <body>
-    
+<?php
+    include './vendor/autoload.php';
+    $conn = new MongoDB\Client('mongodb://localhost:27017');
+    try {
+        $dbs = $conn->listDatabases();
+    } catch(Exception $e){
+        echo '<h3 style="font-weight: normal">An error occurred</h3>';
+        exit();
+    }
+    $table = $conn->selectCollection('TheSocialNetwork', 'users');
+    $user = $table->findOne(['email' => $email], ['projection' => ['name' => 1]]);
+    if($user === null){
+        notLoggedIn();
+    }
+    $name = $user['name'];
+?>
+<div class="container fill-available" style="display: block;">
+        <header style="width: initial">
+            <img class="logo fill-available" src="./resources/logo.png" style="max-width: 16rem">
+            <div class="top fill-available">
+                <h2>The Social Network</h2>
+                <div class="links">
+                    <a href="./">home</a>
+                    <a href="./search">search</a>
+                    <a>browse</a>
+                    <a>invite</a>
+                    <a>help</a>
+                    <a>logout</a>
+                </div>
+            </div>
+        </header>
+        <div class="below fill-available" style="margin: 0">
+            <div class="forms fill-available" style="max-width: 16rem">
+                <div class="me_display">
+                    <img src="./resources/default.png" width="70" height="50">
+                    <div class="named">
+                        <span class="top_name blue-text"><?php echo str_replace(' ', '<br>', $name)?></span>
+                    </div>
+                </div>
+                <div class="my_links" style="margin-top: 0.7rem">
+                    <div class="action_div">
+                        <a href="./profile/?email=<?php echo urlencode($email)?>">My Profile</a>
+                    </div>
+                    <div class="action_div">
+                        <a>My Friends</a>
+                    </div>
+                    <div class="action_div">
+                        <a>My Photos</a>
+                    </div>
+                    <div class="action_div">
+                        <a>My Notes</a>
+                    </div>
+                    <div class="action_div">
+                        <a>My Groups</a>
+                    </div>
+                    <div class="action_div">
+                        <a>My Events</a>
+                    </div>
+                    <div class="action_div">
+                        <a>My Messages</a>
+                    </div>
+                    <div class="action_div">
+                        <a>My Privacy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="other fill-available">
+                <form class="post_form fill-availabkle">
+                    <textarea placeholder="What do you want to post?" class="post_input" rows="5" cols="70" maxlength="650"></textarea>
+                    <button class="classic-btn post_btn">Post</button>
+                </form>
+                <div class="posts fill-available">
+                    <div class="post">
+                        <div class="post_top">
+                            <img src="./resources/default.png" width="70" height="50" class="post_profile_pic">
+                            <div class="post_main">
+                                <span class="post_name blue-text">Person's name</span>
+                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</span>
+                                <div class="post_interaction">
+                                    <span id="like_btn" class="light-blue-text interaction-btn">Like</span>
+                                    <span class="html_dot">&bull;</span>
+                                    <span id="comment_btn" class="light-blue-text interaction-btn">Comment</span>
+                                    <span class="html_dot">&bull;</span>
+                                    <span style="color: gray">at 6:37 March 27th</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

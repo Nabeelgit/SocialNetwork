@@ -18,6 +18,15 @@
     font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
     cursor: pointer;
 }
+.blue-text {
+    color: #2f5ab2;
+}
+.light-blue-text {
+    color: #6584e9;
+}
+.html_dot {
+    color: gray;
+}
 .invisible {
     display: none;
 }

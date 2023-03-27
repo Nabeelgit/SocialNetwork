@@ -52,7 +52,7 @@
         $table = $conn->selectCollection('TheSocialNetwork', 'users');
         $does_not_exist = false;
         $email = $user = $name = '';
-        if(isset($_GET['email'])){
+        if(isset($_GET['email']) && trim($_GET['email']) !== ''){
             $email = $_GET['email'];
             $user = $table->findOne(['email'=>$email]);
             $does_not_exist = $user === null;
@@ -92,14 +92,14 @@
                     <input type="search" placeholder="Search" id="search-inp">
                     <div class="my_links" style="margin-top: 1rem">
                         <div class="action_div">
-                            <a><span>My Profile</span>
+                            <span><a href="<?php echo $my_email !== null ? './?email='.urlencode($my_email) : ''?>">My Profile</a>
                                 <?php 
                                 if($is_my_acc){
                                     ?>
                                     <span id="editable">edit</span>
                                     <?php
                                 }?>
-                            </a>
+                            </span>
                         </div>
                         <div class="action_div">
                             <a>My Friends</a>
@@ -118,9 +118,6 @@
                         </div>
                         <div class="action_div">
                             <a>My Messages</a>
-                        </div>
-                        <div class="action_div">
-                            <a>My Account</a>
                         </div>
                         <div class="action_div">
                             <a>My Privacy</a>

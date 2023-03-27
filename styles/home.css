@@ -1,0 +1,65 @@
+.me_display {
+    margin: 1rem 0 1rem 0.3rem;
+    display: flex;
+}
+.named {
+    margin-left: 0.4rem;
+}
+.top_name {
+    text-transform: capitalize;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.other {
+    border: 1px solid rgb(108, 108, 108);
+    padding: 1rem;
+}
+.post_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.post_input {
+    font-family: sans-serif;
+    resize: vertical;
+    font-size: 1rem;
+}
+.post_btn {
+    width: 4rem;
+    height: 2rem;
+    margin-top: 1rem;
+    margin-left: 32rem;
+}
+.posts {
+    margin-top: 3rem;
+    border-top: 1px solid black;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+.post {
+    border: 1px solid rgb(65, 65, 65);
+    padding: 1rem;
+    max-width: 56rem;
+}
+.post_top {
+    display: flex;
+}
+.post_main {
+    margin-left: 0.3rem;
+    display: flex;
+    flex-direction: column;
+}
+.post_name {
+    text-transform: capitalize;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.post_interaction {
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+}
+.interaction-btn {
+    cursor: pointer;
+}

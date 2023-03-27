@@ -19,22 +19,20 @@
         .welcome {
             margin-left: 34px;
         }
-        .name a{
-            text-transform: capitalize;
-            font-size: 33px;
-            margin-bottom: 1rem;
-            color: #2f5ab2;
-        }
     </style>
 </head> 
 <body>
+    <?php
+    session_start();
+    $email = $_SESSION['email'] ?? $_COOKIE['email'] ?? null;
+    ?>
     <div class="container fill-available" style="display: block;">
         <header style="width: initial">
             <img class="logo fill-available" src="../resources/logo.png" style="max-width: 16rem">
             <div class="top fill-available">
                 <h2>The Social Network</h2>
                 <div class="links">
-                    <a>home</a>
+                    <a href="../">home</a>
                     <a href="./">search</a>
                     <a>browse</a>
                     <a>invite</a>
@@ -49,35 +47,38 @@
                     <input type="search" placeholder="Type a name or email" class="search-inp" name="q" required>
                     <button class="classic-btn">Search</button>
                 </form>
-                <div class="my_links" style="margin-top: 1rem">
-                    <div class="action_div">
-                        <a>My Profile</a>
+                <?php
+                if($email !== null){
+                    ?>
+                    <div class="my_links" style="margin-top: 1rem">
+                        <div class="action_div">
+                            <a href="../profile/?email=<?php echo urlencode($email)?>">My Profile</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Friends</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Photos</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Notes</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Groups</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Events</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Messages</a>
+                        </div>
+                        <div class="action_div">
+                            <a>My Privacy</a>
+                        </div>
                     </div>
-                    <div class="action_div">
-                        <a>My Friends</a>
-                    </div>
-                    <div class="action_div">
-                        <a>My Photos</a>
-                    </div>
-                    <div class="action_div">
-                        <a>My Notes</a>
-                    </div>
-                    <div class="action_div">
-                        <a>My Groups</a>
-                    </div>
-                    <div class="action_div">
-                        <a>My Events</a>
-                    </div>
-                    <div class="action_div">
-                        <a>My Messages</a>
-                    </div>
-                    <div class="action_div">
-                        <a>My Account</a>
-                    </div>
-                    <div class="action_div">
-                        <a>My Privacy</a>
-                    </div>
-                </div>
+                    <?php
+                }
+                ?>
             </div>
             <div class="other fill-available">
                 <div class="welcome fill-available" style="margin-left: 0">
@@ -93,6 +94,12 @@
                     $search = trim($_GET['q']);
                     include '../vendor/autoload.php';
                     $conn = new MongoDB\Client('mongodb://localhost:27017');
+                    try {
+                        $dbs = $conn->listDatabases();
+                    } catch(Exception $e){
+                        echo '<h3 style="font-weight: normal">An error occurred</h3>';
+                        exit();
+                    }
                     $table = $conn->selectCollection('TheSocialNetwork', 'users');
                     $filter = ['$or' => [
                         ['email' => $search],

@@ -19,7 +19,7 @@ function createProfile($user){
     $work_desc = $user['work_desc'] ?? 'Unspecified';
     $activity_status = $user['activity_status'] ?? 'offline';
     $formatted_date = 'Unspecified';
-    if($birthday !== 'Unspecified'){
+    if(str_contains($birthday, '-')){
         $date = new DateTime($birthday);
         $formatted_date = $date->format('F jS, o');
     }

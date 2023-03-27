@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', function(){
         };
         if(values.email !== '' && values.password !== ''){
             sendRequest('../login/scripts/login.php', 'email='+encodeURIComponent(values.email)+'&password='+encodeURIComponent(values.password), function(res){
-                if(res == 1){
+                if(res != 1){
                     warning.style.display = 'block';
-                    warning.innerText = 'Incorrect username or password';
+                    warning.innerText = res;
                 } else {
                     warning.style.display = 'none';
                     warning.innerText = '';
