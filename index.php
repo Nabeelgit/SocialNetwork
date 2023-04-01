@@ -106,30 +106,56 @@
                 </div>
             </div>
             <div class="other fill-available">
-                <form class="post_form fill-availabkle">
+                <form class="post_form fill-available">
                     <textarea placeholder="What do you want to post?" class="post_input" rows="5" cols="70" maxlength="650"></textarea>
+                    <input type="hidden" id="post_information_email" value="<?php echo $email?>">
+                    <input type="hidden" id="post_information_name" value="<?php echo $name?>">
                     <button class="classic-btn post_btn">Post</button>
                 </form>
                 <div class="posts fill-available">
-                    <div class="post">
-                        <div class="post_top">
-                            <img src="./resources/default.png" width="70" height="50" class="post_profile_pic">
-                            <div class="post_main">
-                                <span class="post_name blue-text">Person's name</span>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</span>
-                                <div class="post_interaction">
-                                    <span id="like_btn" class="light-blue-text interaction-btn">Like</span>
-                                    <span class="html_dot">&bull;</span>
-                                    <span id="comment_btn" class="light-blue-text interaction-btn">Comment</span>
-                                    <span class="html_dot">&bull;</span>
-                                    <span style="color: gray">at 6:37 March 27th</span>
+                    <?php
+                    $posts_table = $conn->selectCollection('TheSocialNetwork', 'posts');
+                    $all = $posts_table->find([], ['limit'=>70]);
+                    if($all->isDead()){
+                        echo 'No posts';
+                    } else {
+                        foreach($all as $post){
+                            ?>
+                            <div class="post">
+                                <div class="post_top">
+                                    <img src="./resources/default.png" width="70" height="50" class="post_profile_pic">
+                                    <div class="post_main">
+                                        <span class="post_name blue-text"><?php echo $post['name']?></span>
+                                        <span><?php echo htmlspecialchars($post['text'])?></span>
+                                        <div class="post_interaction">
+                                            <?php
+                                            $likers = explode(',', $post['likers']);
+                                            if(in_array($email, $likers)){
+                                                ?>
+                                                <span class="light-blue-text interaction-btn">Liked (<span class="like_count" id="<?php echo $post['post_id']?>"><?php echo $post['like_count']?></span>)</span>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <span id="like_btn" class="light-blue-text interaction-btn" value="<?php echo $post['likers']?>"><span class="like_status">Like</span> (<span class="like_count" id="<?php echo $post['post_id']?>"><?php echo $post['like_count']?></span>)</span>
+                                                <?php
+                                            }
+                                            ?>
+                                            <span class="html_dot">&bull;</span>
+                                            <span id="comment_btn" class="light-blue-text interaction-btn" value="<?php echo $post['post_id']?>">Comment</span>
+                                            <span class="html_dot">&bull;</span>
+                                            <span style="color: gray">at <?php echo $post['date']?></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
+    <script src="./post/scripts/post.js"></script>
 </body>
 </html>
