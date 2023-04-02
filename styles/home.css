@@ -49,12 +49,12 @@
 .post_top {
     display: flex;
 }
-.post_main {
+.post_main, .comment_main {
     margin-left: 0.3rem;
     display: flex;
     flex-direction: column;
 }
-.post_name {
+.post_name, .comment_name {
     text-transform: capitalize;
     font-size: 0.9rem;
     font-weight: bold;
@@ -65,4 +65,39 @@
 }
 .interaction-btn {
     cursor: pointer;
+}
+.comment_section {
+    margin-top: 1.3rem;
+    margin-left: 4.5rem;
+    width: 40rem;
+}
+.comments {
+    display: flex;
+    flex-direction: column-reverse;
+}
+.comment_writer {
+    background-color: #e0e4f4;
+    margin-bottom: 0.5rem;
+    padding: 0.3rem 0 0.3rem 0.2rem;
+}
+.comment_text {
+    height: 1.5rem;
+    max-width: 35rem;
+    outline: none;
+    border: 1px solid gray;
+}
+.commenter {
+    height: 1.7rem;
+}
+.comment {
+    margin-bottom: 0.6rem;
+    padding: 0.5rem;
+    width: 39rem;
+    display: flex;
+    background-color: #e0e4f4;
+}
+.comment_date {
+    color: gray; 
+    font-size: 13px; 
+    margin-top: 0.3rem
 }

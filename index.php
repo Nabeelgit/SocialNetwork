@@ -20,6 +20,9 @@
 <link rel="stylesheet" type="text/css" href="./styles/style.css">
 <link rel="stylesheet" type="text/css" href="./styles/home.css">
 <style>
+        body {
+            overflow-y: scroll;
+        }
         .fill-available {
             width: -webkit-fill-available;
             width: -moz-fill-available;
@@ -48,7 +51,8 @@
         echo '<h3 style="font-weight: normal">An error occurred</h3>';
         exit();
     }
-    $table = $conn->selectCollection('TheSocialNetwork', 'users');
+    $database = $conn->selectDatabase('TheSocialNetwork');
+    $table = $database->selectCollection('users');
     $user = $table->findOne(['email' => $email], ['projection' => ['name' => 1]]);
     if($user === null){
         notLoggedIn();
@@ -114,14 +118,15 @@
                 </form>
                 <div class="posts fill-available">
                     <?php
-                    $posts_table = $conn->selectCollection('TheSocialNetwork', 'posts');
+                    $posts_table = $database->selectCollection('posts');
                     $all = $posts_table->find([], ['limit'=>70]);
                     if($all->isDead()){
                         echo 'No posts';
                     } else {
+                        $comments_table = $database->selectCollection('comments');
                         foreach($all as $post){
                             ?>
-                            <div class="post">
+                            <div class="post" id="<?php echo $post['post_id']?>">
                                 <div class="post_top">
                                     <img src="./resources/default.png" width="70" height="50" class="post_profile_pic">
                                     <div class="post_main">
@@ -130,21 +135,53 @@
                                         <div class="post_interaction">
                                             <?php
                                             $likers = explode(',', $post['likers']);
-                                            if(in_array($email, $likers)){
-                                                ?>
-                                                <span class="light-blue-text interaction-btn">Liked (<span class="like_count" id="<?php echo $post['post_id']?>"><?php echo $post['like_count']?></span>)</span>
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <span id="like_btn" class="light-blue-text interaction-btn" value="<?php echo $post['likers']?>"><span class="like_status">Like</span> (<span class="like_count" id="<?php echo $post['post_id']?>"><?php echo $post['like_count']?></span>)</span>
-                                                <?php
-                                            }
+                                            ?>
+                                            <span id="like_btn" class="light-blue-text interaction-btn" value="<?php echo $post['likers']?>"><span class="like_status"><?php echo in_array($email, $likers) ? 'Liked' : 'Like' ?></span> (<span class="like_count" id="<?php echo $post['post_id']?>"><?php echo $post['like_count']?></span>)</span>
+                                            <?php
                                             ?>
                                             <span class="html_dot">&bull;</span>
                                             <span id="comment_btn" class="light-blue-text interaction-btn" value="<?php echo $post['post_id']?>">Comment</span>
                                             <span class="html_dot">&bull;</span>
                                             <span style="color: gray">at <?php echo $post['date']?></span>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="comment_section">
+                                    <div class="comment_writer invisible">
+                                        <form class="comment_form">
+                                            <input type="text" class="comment_text fill-available" placeholder="Write a comment..." maxlength="300">
+                                            <button class="classic-btn commenter">Comment</button>
+                                        </form>
+                                    </div>
+                                    <div class="comments">
+                                        <?php
+                                            $my_comms = $comments_table->find(['post_id'=>$post['post_id'], 'email'=>$email]);
+                                            foreach($my_comms as $comment){
+                                                ?>
+                                                <div class="comment">
+                                                    <img src="./resources/default.png" width="70" height="50" class="post_profile_pic">
+                                                    <div class="comment_main">
+                                                        <span class="comment_name blue-text"><?php echo $comment['name']?></span>
+                                                        <span><?php echo htmlspecialchars($comment['text'])?></span>
+                                                        <span class="comment_date">at <?php echo $comment['date']?></span>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                            $other_comms = $comments_table->find(['post_id'=>$post['post_id'], ['email' => ['$ne' => $email]]]);
+                                            foreach($other_comms as $comment){
+                                                ?>
+                                                <div class="comment">
+                                                    <img src="./resources/default.png" width="70" height="50" class="post_profile_pic">
+                                                    <div class="comment_main">
+                                                        <span class="comment_name blue-text"><?php echo $comment['name']?></span>
+                                                        <span><?php echo htmlspecialchars($comment['text'])?></span>
+                                                        <span class="comment_date">at <?php echo $comment['date']?></span>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div>

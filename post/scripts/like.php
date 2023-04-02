@@ -1,6 +1,6 @@
 <?php
 if(isset($_POST['like'])){
-    $count = $_POST['like'];
+    $count = intval($_POST['like']);
     $id  = $_POST['post_id'];
     $likers = $_POST['likers'];
     include '../../vendor/autoload.php';
@@ -12,7 +12,7 @@ if(isset($_POST['like'])){
         exit();
     }
     $table = $conn->selectCollection('TheSocialNetwork', 'posts');
-    $table->updateOne(['post_id'=>$id], ['$set' => ['like_count' => intval($count) + 1, 'likers'=>$likers]]);
+    $table->updateOne(['post_id'=>$id], ['$set' => ['like_count' => $count, 'likers'=>$likers]]);
     echo 1;
 }
 ?>
