@@ -58,16 +58,7 @@
                             <a>My Friends</a>
                         </div>
                         <div class="action_div">
-                            <a>My Photos</a>
-                        </div>
-                        <div class="action_div">
                             <a>My Notes</a>
-                        </div>
-                        <div class="action_div">
-                            <a>My Groups</a>
-                        </div>
-                        <div class="action_div">
-                            <a>My Events</a>
                         </div>
                         <div class="action_div">
                             <a>My Messages</a>
@@ -141,5 +132,9 @@
             </div>
         </div>
     </div>
+    <script src="../resources/status_updater.js"></script>
+    <?php
+    session_write_close();
+    ?>
 </body>
 </html>

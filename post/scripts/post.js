@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             </div>
                         </div>
                         `;
-                        comments_div.innerHTML = comment_str + comments_div.innerHTML;
+                        comments_div.innerHTML += comment_str;
                         comment_writer.classList.add('invisible');
                         comment_text.value = '';
                     }
