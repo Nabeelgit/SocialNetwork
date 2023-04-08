@@ -78,9 +78,8 @@
             <div class="top fill-available">
                 <h2>The Social Network</h2>
                 <div class="links">
-                    <a>home</a>
+                    <a href="../">home</a>
                     <a href="../search">search</a>
-                    <a>browse</a>
                     <a>invite</a>
                     <a>help</a>
                     <a>logout</a>

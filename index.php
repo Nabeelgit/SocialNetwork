@@ -66,10 +66,9 @@
                 <div class="links">
                     <a href="./">home</a>
                     <a href="./search">search</a>
-                    <a>browse</a>
                     <a>invite</a>
                     <a>help</a>
-                    <a>logout</a>
+                    <a href="./login/">logout</a>
                 </div>
             </div>
         </header>
@@ -127,8 +126,6 @@
                                             $likers = explode(',', $post['likers']);
                                             ?>
                                             <span id="like_btn" class="light-blue-text interaction-btn" value="<?php echo $post['likers']?>"><span class="like_status"><?php echo in_array($email, $likers) ? 'Liked' : 'Like' ?></span> (<span class="like_count" id="<?php echo $post['post_id']?>"><?php echo $post['like_count']?></span>)</span>
-                                            <?php
-                                            ?>
                                             <span class="html_dot">&bull;</span>
                                             <span id="comment_btn" class="light-blue-text interaction-btn" value="<?php echo $post['post_id']?>">Comment</span>
                                             <span class="html_dot">&bull;</span>
@@ -158,7 +155,7 @@
                                                 </div>
                                                 <?php
                                             }
-                                            $other_comms = $comments_table->find(['post_id'=>$post['post_id'], ['email' => ['$ne' => $email]]]);
+                                            $other_comms = $comments_table->find(['post_id'=>$post['post_id'], 'email' => ['$ne' => $email]]);
                                             foreach($other_comms as $comment){
                                                 ?>
                                                 <div class="comment">

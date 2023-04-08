@@ -38,7 +38,6 @@
                 <div class="links">
                     <a href="../">home</a>
                     <a href="./">search</a>
-                    <a>browse</a>
                     <a>invite</a>
                     <a>help</a>
                     <a>logout</a>

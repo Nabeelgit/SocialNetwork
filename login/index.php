@@ -8,6 +8,11 @@
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
 </head>
 <body>
+    <?php
+    session_start();
+    session_unset();
+    session_write_close();
+    ?>
     <div class="container">
         <header>
             <img class="logo" src="../resources/logo.png">

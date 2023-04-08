@@ -56,7 +56,7 @@
                     </div>
                     <div class="about">
                         <p>To register for the Social Network, just fill in the fields below. You will have a chance to enter additional information and submit a picture once you have registered.</p>
-                        <form method="post" action="../index.php" id="register-form">
+                        <form method="post" action="../" id="register-form">
                             <div class="form-grid">
                                 <label>Name: </label>
                                 <input name="name" id="name">
