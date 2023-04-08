@@ -30,6 +30,10 @@
 .invisible {
     display: none;
 }
+.no_link {
+    text-decoration: none;
+    color: inherit;
+}
 .classic-btn:hover {
     background-color: #344c80;
 }

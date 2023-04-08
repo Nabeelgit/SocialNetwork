@@ -85,7 +85,7 @@
                         <a href="./profile/?email=<?php echo urlencode($email)?>">My Profile</a>
                     </div>
                     <div class="action_div">
-                        <a>My Friends</a>
+                        <a href="./friends/">My Friends</a>
                     </div>
                     <div class="action_div">
                         <a href="./notes">My Notes</a>
@@ -119,7 +119,7 @@
                                 <div class="post_top">
                                     <img src="./resources/default.png" width="70" height="50" class="post_profile_pic">
                                     <div class="post_main">
-                                        <span class="post_name blue-text"><?php echo $post['name']?></span>
+                                        <span class="post_name blue-text"><a class="no_link" href="./profile/?email=<?php echo urlencode($post['email'])?>"><?php echo $post['name']?></a></span>
                                         <span><?php echo htmlspecialchars($post['text'])?></span>
                                         <div class="post_interaction">
                                             <?php
@@ -143,25 +143,20 @@
                                     <div class="comments">
                                         <?php
                                             $my_comms = $comments_table->find(['post_id'=>$post['post_id'], 'email'=>$email]);
+                                            $all_comms = [];
                                             foreach($my_comms as $comment){
-                                                ?>
-                                                <div class="comment">
-                                                    <img src="./resources/default.png" width="70" height="50" class="post_profile_pic">
-                                                    <div class="comment_main">
-                                                        <span class="comment_name blue-text"><?php echo $comment['name']?></span>
-                                                        <span><?php echo htmlspecialchars($comment['text'])?></span>
-                                                        <span class="comment_date">at <?php echo $comment['date']?></span>
-                                                    </div>
-                                                </div>
-                                                <?php
+                                                $all_comms[] = $comment;
                                             }
                                             $other_comms = $comments_table->find(['post_id'=>$post['post_id'], 'email' => ['$ne' => $email]]);
                                             foreach($other_comms as $comment){
+                                                $all_comms[] = $comment;
+                                            }
+                                            foreach($all_comms as $comment){
                                                 ?>
                                                 <div class="comment">
                                                     <img src="./resources/default.png" width="70" height="50" class="post_profile_pic">
                                                     <div class="comment_main">
-                                                        <span class="comment_name blue-text"><?php echo $comment['name']?></span>
+                                                        <span class="comment_name blue-text"><a class="no_link" href="./profile/?email=<?php echo urlencode($comment['email'])?>"><?php echo $comment['name']?></a></span>
                                                         <span><?php echo htmlspecialchars($comment['text'])?></span>
                                                         <span class="comment_date">at <?php echo $comment['date']?></span>
                                                     </div>

@@ -1,6 +1,6 @@
 <?php
 function createProfile($user){
-    global $is_my_acc;
+    global $is_my_acc, $my_email;
     $name = $user['name'];
     $email = $user['email'] ?? 'None';
     $status = $user['status'] ?? 'None';
@@ -32,24 +32,37 @@ function createProfile($user){
             <div class="about">
                 <div class="left">
                     <img src="<?php echo !isset($user['photo']) || $user['photo'] === '' ? '../resources/default.png' : $user['photo'] ?>" class="profile_photo">
-                    <div class="action_div">
-                        <a>View photos</a>
-                    </div>
-                    <div class="action_div">
-                        <a>View friends</a>
-                    </div>
-                    <div class="action_div">
-                        <a>Send message</a>
-                    </div>
-                    <div class="action_div">
-                        <a>Poke!</a>
-                    </div>
-                    <div class="action_div">
-                        <a>Add as friend</a>
-                    </div>
-                    <div class="action_div">
-                        <a>Report</a>
-                    </div>
+                    <?php
+                    if(!isset($user['nonexistent'])){
+                        ?>
+                        <div class="action_div">
+                            <a href="../friends/?user=<?php echo urlencode($email)?>">View friends</a>
+                        </div>
+                        <?php
+                        if(!$is_my_acc){
+                            global $db;
+                            $friends_table = $db->selectCollection('friends');
+                            // check if already added
+                            $match = $friends_table->findOne(['friender'=>$my_email, 'friend_email'=>$email]);
+                            $text = 'Add as friend';
+                            if($match !== null){
+                                $text = 'Unfriend';
+                            }
+                            ?>
+                            <div class="action_div">
+                                <a>Send message</a>
+                            </div>
+                            <div class="action_div">
+                                <a id="friend_btn"><?php echo $text?></a>
+                            </div>
+                            <div class="action_div">
+                                <a>Report</a>
+                            </div>
+                            <script src="./scripts/actions.js"></script>
+                            <?php
+                        }
+                    }
+                    ?>
                     <div class="title_div" style="margin-top: 0.6rem">
                         Status
                     </div>
@@ -67,9 +80,9 @@ function createProfile($user){
                         </div>
                         <div></div>
                         <div class="info_title">Name: </div>
-                        <div class="info"><?php echo $name?></div>
+                        <div class="info" id="profiles_name"><?php echo $name?></div>
                         <div class="info_title">Networks: </div>
-                        <div class="info"><?php implode(',', [$education, $company, $location])?></div>
+                        <div class="info"><?php foreach([$education, $company, $location] as $net) if($net !== 'None') echo $net.'<br>'?></div>
                         <div class="info_title">Last update: </div>
                         <div class="info">...</div>
                         <div class="header_div">
@@ -91,7 +104,7 @@ function createProfile($user){
                         </div>
                         <div></div>
                         <div class="info_title">Email: </div>
-                        <div class="info emailInfo" style="text-transform: none;"><?php echo $email?></div>
+                        <div class="info emailInfo" style="text-transform: none;" id="profiles_email"><?php echo $email?></div>
                         <div class="header_div">
                             Personal info
                         </div>

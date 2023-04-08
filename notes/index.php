@@ -54,7 +54,7 @@
                             <a href="../profile/?email=<?php echo urlencode($email)?>">My Profile</a>
                         </div>
                         <div class="action_div">
-                            <a>My Friends</a>
+                            <a href="../friends/">My Friends</a>
                         </div>
                         <div class="action_div">
                             <a href="./">My Notes</a>

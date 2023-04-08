@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
     <link rel="stylesheet" type="text/css" href="../styles/profile.css">
+    <script src="../resources/status_updater.js"></script>
     <style>
         body {
             overflow-y: scroll;
@@ -49,7 +50,8 @@
     <?php
         include '../vendor/autoload.php';
         $conn = new MongoDB\Client('mongodb://localhost:27017');
-        $table = $conn->selectCollection('TheSocialNetwork', 'users');
+        $db = $conn->selectDatabase('TheSocialNetwork');
+        $table = $db->selectCollection('users');
         $does_not_exist = false;
         $email = $user = $name = '';
         if(isset($_GET['email']) && trim($_GET['email']) !== ''){
@@ -72,6 +74,7 @@
     <title><?php echo $name?> - The Social Network</title>
 </head>
 <body>
+    <input type="hidden" id="my_email" value="<?php echo $my_email?>">
     <div class="container fill-available">
         <header>
             <img class="logo fill-available" src="../resources/logo.png">
@@ -87,8 +90,7 @@
             </div>
         </header>
         <div class="below fill-available">
-                <div class="forms">
-                    <input type="search" placeholder="Search" id="search-inp">
+                <div class="forms fill-available" style="max-width: 175px">
                     <div class="my_links" style="margin-top: 1rem">
                         <div class="action_div">
                             <span><a href="<?php echo $my_email !== null ? './?email='.urlencode($my_email) : ''?>">My Profile</a>
@@ -101,7 +103,7 @@
                             </span>
                         </div>
                         <div class="action_div">
-                            <a>My Friends</a>
+                            <a href="../friends/">My Friends</a>
                         </div>
                         <div class="action_div">
                             <a href="../notes/">My Notes</a>
@@ -118,7 +120,7 @@
                     <?php
                     include './profile.php';
                     if($does_not_exist){
-                        createProfile(['name' => 'User does not exist', 'email' => 'None', 'status' => 'This profile might have been deleted', 'location'=>'Somewhere', 'rls'=>'Hmmm...', 'birthday'=>'Someday', 'hometown'=>'Maybe here or maybe there', 'activites' => 'Not existing', 'interests'=>'Being nonexistent', 'books' => 'How to be nonexistent', 'quotes'=>'if you\'re nonexistent... stay nonexistent', 'about'=>'A person that does not exist', 'education'=>'Nonexistent high', 'company' => 'unspecified']);
+                        createProfile(['name' => 'User does not exist', 'email' => 'None', 'status' => 'This profile might have been deleted', 'location'=>'Somewhere', 'rls'=>'Hmmm...', 'birthday'=>'Someday', 'hometown'=>'Maybe here or maybe there', 'activites' => 'Not existing', 'interests'=>'Being nonexistent', 'books' => 'How to be nonexistent', 'quotes'=>'if you\'re nonexistent... stay nonexistent', 'about'=>'A person that does not exist', 'education'=>'Nonexistent high', 'company' => 'unspecified', 'nonexistent'=>1]);
                     } else {
                         createProfile($user);
                     }
@@ -127,7 +129,6 @@
             </div>
         </div>
     </div>
-    <script src="../resources/status_updater.js"></script>
     <?php
     session_write_close();
     ?>
