@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search - The Social Network</title>
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
-    <link rel="stylesheet" type="text/css" href="../styles/search.css">
+    <link rel="stylesheet" type="text/css" href="../styles/notes.css">
     <style>
         .fill-available {
             width: -webkit-fill-available;
             width: -moz-fill-available;
+        }
+        .forms {
+            margin-top: 0.72rem;
         }
         .my_links .action_div {
             max-width: 13rem;
@@ -26,6 +29,7 @@
     session_start();
     $email = $_SESSION['email'] ?? $_COOKIE['email'] ?? null;
     ?>
+    <input type="hidden" value="<?php echo $email?>" id="email">
     <div class="container fill-available" style="display: block;">
         <header style="width: initial">
             <img class="logo fill-available" src="../resources/logo.png" style="max-width: 16rem">
@@ -43,14 +47,10 @@
         </header>
         <div class="below fill-available" style="margin: 0">
             <div class="forms fill-available" style="max-width: 16rem">
-                <form class="search-form" method="get" action="./">
-                    <input type="search" placeholder="Type a name or email" class="search-inp" name="q" required>
-                    <button class="classic-btn">Search</button>
-                </form>
                 <?php
                 if($email !== null){
                     ?>
-                    <div class="my_links" style="margin-top: 1rem">
+                    <div class="my_links">
                         <div class="action_div">
                             <a href="../profile/?email=<?php echo urlencode($email)?>">My Profile</a>
                         </div>
@@ -58,7 +58,7 @@
                             <a>My Friends</a>
                         </div>
                         <div class="action_div">
-                            <a href="../notes/">My Notes</a>
+                            <a href="./">My Notes</a>
                         </div>
                         <div class="action_div">
                             <a>My Messages</a>
@@ -74,65 +74,37 @@
             <div class="other fill-available">
                 <div class="welcome fill-available" style="margin-left: 0">
                     <div class="welcome_header fill-available">
-                        Search
+                        My Notes
                     </div>
                 </div>
-                <?php
-                $search = null;
-                $get_isset = isset($_GET['q']);
-                $results = [];
-                if($get_isset){
-                    $search = trim($_GET['q']);
-                    include '../vendor/autoload.php';
-                    $conn = new MongoDB\Client('mongodb://localhost:27017');
-                    try {
-                        $dbs = $conn->listDatabases();
-                    } catch(Exception $e){
-                        echo '<h3 style="font-weight: normal">An error occurred</h3>';
-                        exit();
-                    }
-                    $table = $conn->selectCollection('TheSocialNetwork', 'users');
-                    $filter = ['$or' => [
-                        ['email' => $search],
-                        ['name' => ['$regex' => $search]]
-                    ]];
-                    $matches = $table->find($filter, ['projection' => ['name' => 1, 'email'=> 1, 'status'=> 1]]);
-                    if(!$matches->isDead()) $results = $matches;
-                }
-                ?>
-                <div class="about">
-                    <?php
-                    if(!$get_isset){
-                        echo '<h3 style="font-weight: normal">Results will show up here when you click search</h3>';
-                    } else if(empty($results)) {
-                        echo '<h3>No results found</h3>';
-                    } else {
-                        // display
-                        ?>
-                        <div class="results">
+                <div class="about center" style="flex-direction: column">
+                    <div class="notes_form fill-available center">
+                        <form class="note_writer">
+                            <input type="text" placeholder="Write a note..." id="note_input" autocomplete="off">
+                            <button class="classic-btn note-submit">Submit</button>
+                        </form>
+                    </div>
+                    <div class="notes fill-available">
                         <?php
-                        foreach($results as $result){
-                            ?>
-                            <div class="result">
-                                <img src="../resources/default.png" class="profile-picture">
-                                <div class="info">
-                                    <h3 class="name"><a href="../profile/?email=<?php echo urlencode($result['email'])?>"><?php echo htmlspecialchars($result['name'])?></a></h3>
-                                    <h4 class="email"><?php echo htmlspecialchars($result['email'])?></h4>
-                                    <h4 class="status" style="margin-bottom: 0"><?php echo htmlspecialchars($result['status'])?></h4>
-                                </div>
+                        include '../vendor/autoload.php';
+                        $conn = new MongoDB\Client('mongodb://localhost:27017');
+                        $table = $conn->selectCollection('TheSocialNetwork', 'notes');
+                        $matches = $table->find(['email' => $email]);
+                        foreach($matches as $note){
+                            ?>  
+                            <div class="note">
+                                <?php echo $note['text']?>
                             </div>
                             <?php
                         }
                         ?>
-                        </div>
-                        <?php
-                    }
-                    ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="../resources/status_updater.js"></script>
+    <script src="./scripts/script.js"></script>
     <?php
     session_write_close();
     ?>

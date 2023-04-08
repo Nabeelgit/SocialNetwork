@@ -1,0 +1,42 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.note_writer {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: stretch;
+}
+#note_input {
+    width: 21rem;
+    height: 1.5rem;
+    font-size: 1rem;
+    border-radius: 0;
+    border: 1px solid gray;
+    outline: none;
+}
+.note-submit {
+    margin-left: 0.5rem;
+}
+.notes {
+    margin-top: 1.4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 15rem);
+    justify-content: center;
+    justify-items: center;
+    row-gap: 2rem;
+}
+.note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(230, 234, 15, 0.673);
+    width: 13rem;
+    height: 9rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.note:hover {
+    text-decoration: line-through;
+}

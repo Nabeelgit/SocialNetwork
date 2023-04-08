@@ -89,7 +89,7 @@
                         <a>My Friends</a>
                     </div>
                     <div class="action_div">
-                        <a>My Notes</a>
+                        <a href="./notes">My Notes</a>
                     </div>
                     <div class="action_div">
                         <a>My Messages</a>
