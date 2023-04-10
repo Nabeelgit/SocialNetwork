@@ -24,7 +24,7 @@
             margin-left: 34px;
         }
         .about {
-            padding: 0 20px 0 0;
+            padding: 0;
             height: 41rem;
         }
     </style>
@@ -119,12 +119,28 @@
                                 </div>
                             </div>
                         </div>  
-                        <div class="message_box">
-                            <div class="message-header">
-                                <!-- <img src="../resources/default.png" class="person_pic"> -->
-                                <div class="person_info">
-                                    
+                        <div class="message_box fill-available">
+                            <div class="message_header fill-available">
+                                <img src="../resources/default.png" class="person_pic">
+                                <div style="margin-top: 0.5rem">
+                                    <span class="blue-text person_name">Nabeel Ahmed <span class="activity_circle" style="<?php echo true ? '#20bf20' : '#f31919'?>"></span></span>
                                 </div>
+                            </div>
+                            <div class="messages fill-available-height">
+                                <div class="message other_message">
+                                    <span><span class="blue-text person_name">Nabeel Ahmed</span> <span class="message_time">at 12:34 March 24th</span></span>
+                                    <span class="message_text">Hey</span>
+                                </div>
+                                <div class="message my_message">
+                                    <span><span class="blue-text person_name">You</span> <span class="message_time">at 12:35 March 24th</span></span>                                    
+                                    <span class="message_text">Hello</span>
+                                </div>
+                            </div>
+                            <div class="message_form fill-available fill-available-height">
+                                <form class="message_sender">
+                                    <input type="text" class="message_input" placeholder="Write a message...">
+                                    <button class="classic-btn" style="height: 1.7rem; width: 4rem">Send</button>
+                                </form>
                             </div>
                         </div>
                     </div>
