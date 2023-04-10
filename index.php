@@ -85,13 +85,13 @@
                         <a href="./profile/?email=<?php echo urlencode($email)?>">My Profile</a>
                     </div>
                     <div class="action_div">
-                        <a href="./friends/">My Friends</a>
+                        <a href="./friends">My Friends</a>
                     </div>
                     <div class="action_div">
                         <a href="./notes">My Notes</a>
                     </div>
                     <div class="action_div">
-                        <a>My Messages</a>
+                        <a href="./messages">My Messages</a>
                     </div>
                     <div class="action_div">
                         <a>My Privacy</a>

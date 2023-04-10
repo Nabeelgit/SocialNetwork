@@ -25,6 +25,7 @@
     <?php
     session_start();
     $email = $_SESSION['email'] ?? $_COOKIE['email'] ?? null;
+    $is_logged_in = $email !== null;
     ?>
     <div class="container fill-available" style="display: block;">
         <header style="width: initial">
@@ -36,7 +37,13 @@
                     <a href="./">search</a>
                     <a>invite</a>
                     <a>help</a>
-                    <a>logout</a>
+                    <?php
+                    if($is_logged_in){
+                        ?>
+                        <a href="../login/">logout</a>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
         </header>
@@ -47,7 +54,7 @@
                     <button class="classic-btn">Search</button>
                 </form>
                 <?php
-                if($email !== null){
+                if($is_logged_in){
                     ?>
                     <div class="my_links" style="margin-top: 1rem">
                         <div class="action_div">
@@ -60,7 +67,7 @@
                             <a href="../notes/">My Notes</a>
                         </div>
                         <div class="action_div">
-                            <a>My Messages</a>
+                            <a href="../messages/">My Messages</a>
                         </div>
                         <div class="action_div">
                             <a>My Privacy</a>

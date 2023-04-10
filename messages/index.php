@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search - The Social Network</title>
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
-    <link rel="stylesheet" type="text/css" href="../styles/notes.css">
+    <link rel="stylesheet" type="text/css" href="../styles/messages.css"> 
     <style>
         .fill-available {
             width: -webkit-fill-available;
             width: -moz-fill-available;
         }
-        .forms {
-            margin-top: 0.72rem;
+        .fill-available-height {
+            height: -webkit-fill-available;
+            height: -moz-fill-available;
         }
         .my_links .action_div {
             max-width: 13rem;
@@ -21,6 +22,10 @@
         }
         .welcome {
             margin-left: 34px;
+        }
+        .about {
+            padding: 0 20px 0 0;
+            height: 41rem;
         }
     </style>
 </head> 
@@ -30,7 +35,6 @@
     $email = $_SESSION['email'] ?? $_COOKIE['email'] ?? null;
     $is_logged_in = $email !== null;
     ?>
-    <input type="hidden" value="<?php echo $email?>" id="email">
     <div class="container fill-available" style="display: block;">
         <header style="width: initial">
             <img class="logo fill-available" src="../resources/logo.png" style="max-width: 16rem">
@@ -54,9 +58,9 @@
         <div class="below fill-available" style="margin: 0">
             <div class="forms fill-available" style="max-width: 16rem">
                 <?php
-                if($is_logged_in){
+                if($email !== null){
                     ?>
-                    <div class="my_links">
+                    <div class="my_links" style="margin-top: 1rem">
                         <div class="action_div">
                             <a href="../profile/?email=<?php echo urlencode($email)?>">My Profile</a>
                         </div>
@@ -64,10 +68,10 @@
                             <a href="../friends/">My Friends</a>
                         </div>
                         <div class="action_div">
-                            <a href="./">My Notes</a>
+                            <a href="../notes/">My Notes</a>
                         </div>
                         <div class="action_div">
-                            <a href="../messages/">My Messages</a>
+                            <a href="./">My Messages</a>
                         </div>
                         <div class="action_div">
                             <a>My Privacy</a>
@@ -80,37 +84,55 @@
             <div class="other fill-available">
                 <div class="welcome fill-available" style="margin-left: 0">
                     <div class="welcome_header fill-available">
-                        My Notes
+                        My Messages
                     </div>
                 </div>
-                <div class="about center" style="flex-direction: column">
-                    <div class="notes_form fill-available center">
-                        <form class="note_writer">
-                            <input type="text" placeholder="Write a note..." id="note_input" autocomplete="off">
-                            <button class="classic-btn note-submit">Submit</button>
-                        </form>
-                    </div>
-                    <div class="notes fill-available">
-                        <?php
-                        include '../vendor/autoload.php';
-                        $conn = new MongoDB\Client('mongodb://localhost:27017');
-                        $table = $conn->selectCollection('TheSocialNetwork', 'notes');
-                        $matches = $table->find(['email' => $email]);
-                        foreach($matches as $note){
-                            ?>  
-                            <div class="note">
-                                <?php echo $note['text']?>
+                <?php
+                include '../vendor/autoload.php';
+                $conn = new MongoDB\Client('mongodb://localhost:27017');
+                try {
+                    $dbs = $conn->listDatabases();
+                } catch(Exception $e){
+                    echo '<h3 style="font-weight: normal">Couldn\'t connect to database...</h3>';
+                    exit();
+                }
+                $db = $conn->selectDatabase('TheSocialNetwork');
+                $messages_table = $db->selectCollection('messages');
+                $user_table = $db->selectCollection('users');
+                function getStatus($email){
+                    global $user_table;
+                    $match = $user_table->findOne(['email'=>$email], ['projection'=>['activity_status'=>1]]);
+                    if($match !== null){
+                        return $match['activity_status'];
+                    }   
+                    return 'offline';
+                }
+                ?>
+                <div class="about">
+                    <div class="messages_container fill-available-height">
+                        <div class="people fill-available-height">
+                            <div class="person">
+                                <img src="../resources/default.png" class="person_pic">
+                                <div class="person_info">
+                                    <span class="blue-text person_name">Nabeel Ahmed</span>
+                                    <span>nabeel30march@gmail.com</span>
+                                </div>
                             </div>
-                            <?php
-                        }
-                        ?>
+                        </div>  
+                        <div class="message_box">
+                            <div class="message-header">
+                                <!-- <img src="../resources/default.png" class="person_pic"> -->
+                                <div class="person_info">
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="../resources/status_updater.js"></script>
-    <script src="./scripts/script.js"></script>
     <?php
     session_write_close();
     ?>

@@ -69,6 +69,7 @@
         $does_exist = !$does_not_exist;
         session_start();
         $my_email = $_SESSION['email'] ?? $_COOKIE['email'] ?? null;
+        $is_logged_in = $my_email !== null;
         $is_my_acc = $my_email === $email;
     ?>
     <title><?php echo $name?> - The Social Network</title>
@@ -85,36 +86,48 @@
                     <a href="../search">search</a>
                     <a>invite</a>
                     <a>help</a>
-                    <a>logout</a>
+                    <?php
+                    if($is_logged_in){
+                        ?>
+                        <a href="../login/">logout</a>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
         </header>
         <div class="below fill-available">
                 <div class="forms fill-available" style="max-width: 175px">
-                    <div class="my_links" style="margin-top: 1rem">
-                        <div class="action_div">
-                            <span><a href="<?php echo $my_email !== null ? './?email='.urlencode($my_email) : ''?>">My Profile</a>
-                                <?php 
-                                if($is_my_acc){
-                                    ?>
-                                    <span id="editable">edit</span>
-                                    <?php
-                                }?>
-                            </span>
+                    <?php
+                    if($is_logged_in){
+                        ?>
+                        <div class="my_links" style="margin-top: 1rem">
+                            <div class="action_div">
+                                <span><a href="<?php echo $my_email !== null ? './?email='.urlencode($my_email) : ''?>">My Profile</a>
+                                    <?php 
+                                    if($is_my_acc){
+                                        ?>
+                                        <span id="editable">edit</span>
+                                        <?php
+                                    }?>
+                                </span>
+                            </div>
+                            <div class="action_div">
+                                <a href="../friends/">My Friends</a>
+                            </div>
+                            <div class="action_div">
+                                <a href="../notes/">My Notes</a>
+                            </div>
+                            <div class="action_div">
+                                <a href="">My Messages</a>
+                            </div>
+                            <div class="action_div">
+                                <a>My Privacy</a>
+                            </div>
                         </div>
-                        <div class="action_div">
-                            <a href="../friends/">My Friends</a>
-                        </div>
-                        <div class="action_div">
-                            <a href="../notes/">My Notes</a>
-                        </div>
-                        <div class="action_div">
-                            <a>My Messages</a>
-                        </div>
-                        <div class="action_div">
-                            <a>My Privacy</a>
-                        </div>
-                    </div>
+                        <?php
+                    }
+                    ?>
                 </div>
                 <div class="other fill-available">
                     <?php
