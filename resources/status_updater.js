@@ -1,4 +1,4 @@
-function sendRequest(to, body, func){
+function sendRequest(to, body){
     const xml = new XMLHttpRequest();
     xml.open('POST', to, true);
     xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");

@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['update'])){
+function updateStatus($status){
     include '../vendor/autoload.php';
     $conn = new MongoDB\Client('mongodb://localhost:27017');
     try {
@@ -11,8 +11,11 @@ if(isset($_POST['update'])){
     $table = $conn->selectCollection('TheSocialNetwork', 'users');
     session_start();
     if(isset($_SESSION['email'])){
-        $table->updateOne(['email'=>$_SESSION['email']], ['$set' => ['activity_status'=>$_POST['update']]]);
+        $table->updateOne(['email'=>$_SESSION['email']], ['$set' => ['activity_status'=>$status]]);
     }
     session_write_close();
+}
+if(isset($_POST['update'])){
+    updateStatus($_POST['update']);
 }
 ?>

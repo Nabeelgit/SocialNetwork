@@ -50,7 +50,7 @@ function createProfile($user){
                             }
                             ?>
                             <div class="action_div">
-                                <a>Send message</a>
+                                <a href="../messages/?newMessage=<?php echo $email?>&name=<?php echo $name?>&status=<?php echo $activity_status?>">Send message</a>
                             </div>
                             <div class="action_div">
                                 <a id="friend_btn"><?php echo $text?></a>

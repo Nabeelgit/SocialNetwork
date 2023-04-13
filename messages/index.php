@@ -27,14 +27,37 @@
             padding: 0;
             height: 41rem;
         }
+        .activity_circle {
+            background-color: #20bf20;
+        }
     </style>
 </head> 
 <body>
     <?php
     session_start();
     $email = $_SESSION['email'] ?? $_COOKIE['email'] ?? null;
-    $is_logged_in = $email !== null;
+    if($email === null){
+        header('Location: ../login');
+    }
+    include '../vendor/autoload.php';
+    $conn = new MongoDB\Client('mongodb://localhost:27017');
+    try {
+        $dbs = $conn->listDatabases();
+    } catch(Exception $e){
+        echo '<h3 style="font-weight: normal">Couldn\'t connect to database...</h3>';
+        exit();
+    }
+    $db = $conn->selectDatabase('TheSocialNetwork');
+    $messages_table = $db->selectCollection('messages');
+    $users_table = $db->selectCollection('users');
+    $match = $users_table->findOne(['email' => $email], ['projection'=>['name'=>1]]);
+    if($match === null){
+        header('Location: ../login');
+    }
+    $my_name = $match['name'];
     ?>
+    <input type="hidden" id="my_email" value="<?php echo $email ?>">
+    <input type="hidden" id="my_name" value="<?php echo $my_name ?>">
     <div class="container fill-available" style="display: block;">
         <header style="width: initial">
             <img class="logo fill-available" src="../resources/logo.png" style="max-width: 16rem">
@@ -45,41 +68,29 @@
                     <a href="./">search</a>
                     <a>invite</a>
                     <a>help</a>
-                    <?php
-                    if($is_logged_in){
-                        ?>
-                        <a href="../login/">logout</a>
-                        <?php
-                    }
-                    ?>
+                    <a href="../login/">logout</a>
                 </div>
             </div>
         </header>
         <div class="below fill-available" style="margin: 0">
             <div class="forms fill-available" style="max-width: 16rem">
-                <?php
-                if($email !== null){
-                    ?>
-                    <div class="my_links" style="margin-top: 1rem">
-                        <div class="action_div">
-                            <a href="../profile/?email=<?php echo urlencode($email)?>">My Profile</a>
-                        </div>
-                        <div class="action_div">
-                            <a href="../friends/">My Friends</a>
-                        </div>
-                        <div class="action_div">
-                            <a href="../notes/">My Notes</a>
-                        </div>
-                        <div class="action_div">
-                            <a href="./">My Messages</a>
-                        </div>
-                        <div class="action_div">
-                            <a>My Privacy</a>
-                        </div>
+                <div class="my_links" style="margin-top: 1rem">
+                    <div class="action_div">
+                        <a href="../profile/?email=<?php echo urlencode($email)?>">My Profile</a>
                     </div>
-                    <?php
-                }
-                ?>
+                    <div class="action_div">
+                        <a href="../friends/">My Friends</a>
+                    </div>
+                    <div class="action_div">
+                        <a href="../notes/">My Notes</a>
+                    </div>
+                    <div class="action_div">
+                        <a href="./">My Messages</a>
+                    </div>
+                    <div class="action_div">
+                        <a>My Privacy</a>
+                    </div>
+                </div>
             </div>
             <div class="other fill-available">
                 <div class="welcome fill-available" style="margin-left: 0">
@@ -87,54 +98,66 @@
                         My Messages
                     </div>
                 </div>
-                <?php
-                include '../vendor/autoload.php';
-                $conn = new MongoDB\Client('mongodb://localhost:27017');
-                try {
-                    $dbs = $conn->listDatabases();
-                } catch(Exception $e){
-                    echo '<h3 style="font-weight: normal">Couldn\'t connect to database...</h3>';
-                    exit();
-                }
-                $db = $conn->selectDatabase('TheSocialNetwork');
-                $messages_table = $db->selectCollection('messages');
-                $user_table = $db->selectCollection('users');
-                function getStatus($email){
-                    global $user_table;
-                    $match = $user_table->findOne(['email'=>$email], ['projection'=>['activity_status'=>1]]);
-                    if($match !== null){
-                        return $match['activity_status'];
-                    }   
-                    return 'offline';
-                }
-                ?>
                 <div class="about">
                     <div class="messages_container fill-available-height">
                         <div class="people fill-available-height">
-                            <div class="person">
-                                <img src="../resources/default.png" class="person_pic">
-                                <div class="person_info">
-                                    <span class="blue-text person_name">Nabeel Ahmed</span>
-                                    <span>nabeel30march@gmail.com</span>
-                                </div>
-                            </div>
+                            <?php
+                                $messengers_table = $db->selectCollection('messengers');
+                                $filter = ['$or' => [
+                                    ['sender' => $email],
+                                    ['recipient' => $email]
+                                ]];
+                                $values = $messengers_table->find($filter);
+                                foreach($values as $person){
+                                    $person_email = '';
+                                    $person_name = '';
+                                    if($person['sender'] === $email){
+                                        $person_email = $person['recipient'];
+                                        $person_name = $person['recipient_name'];                                        
+                                    } else if($person['recipient'] === $email){
+                                        $person_email = $person['sender'];
+                                        $person_name = $person['sender_name'];
+                                    }
+                                    ?>
+                                    <div class="person">
+                                        <img src="../resources/default.png" class="person_pic">
+                                        <div class="person_info">
+                                            <span class="blue-text person_name"><?php echo ucfirst($person_name)?></span>
+                                            <span class="person_email"><?php echo $person_email?></span>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                $newMessage = [];
+                                if(isset($_GET['newMessage']) && isset($_GET['name']) && isset($_GET['status'])){
+                                    $newMessage = ['email' => $_GET['newMessage'], 'name' => $_GET['name'], 'status' => $_GET['status']];
+                                }
+                            ?>
+
                         </div>  
-                        <div class="message_box fill-available">
+                        <div class="message_box fill-available <?php if ($newMessage === []) echo 'invisible'?>">
                             <div class="message_header fill-available">
                                 <img src="../resources/default.png" class="person_pic">
-                                <div style="margin-top: 0.5rem">
-                                    <span class="blue-text person_name">Nabeel Ahmed <span class="activity_circle" style="<?php echo true ? '#20bf20' : '#f31919'?>"></span></span>
+                                <div style="margin-top: 0.5rem" id="header_info">
+                                    <?php
+                                        if($newMessage !== []){
+                                            $color = $newMessage['status'] === 'online' ? '#20bf20' : '#f31919'; 
+                                            ?>
+                                            <input type="hidden" id="recipient_email" value="<?php echo $newMessage['email']?>">
+                                            <span class="blue-text person_name"><?php echo $newMessage['name']?></span>
+                                            <span class="activity_circle" style="background-color: <?php echo $color?>"></span> 
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <span class="blue-text person_name"></span>
+                                            <span class="activity_circle"></span>
+                                            <?php
+                                        }
+                                    ?>
                                 </div>
                             </div>
                             <div class="messages fill-available-height">
-                                <div class="message other_message">
-                                    <span><span class="blue-text person_name">Nabeel Ahmed</span> <span class="message_time">at 12:34 March 24th</span></span>
-                                    <span class="message_text">Hey</span>
-                                </div>
-                                <div class="message my_message">
-                                    <span><span class="blue-text person_name">You</span> <span class="message_time">at 12:35 March 24th</span></span>                                    
-                                    <span class="message_text">Hello</span>
-                                </div>
+
                             </div>
                             <div class="message_form fill-available fill-available-height">
                                 <form class="message_sender">
@@ -149,6 +172,7 @@
         </div>
     </div>
     <script src="../resources/status_updater.js"></script>
+    <script src="./scripts/script.js"></script>
     <?php
     session_write_close();
     ?>

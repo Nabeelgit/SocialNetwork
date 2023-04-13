@@ -119,7 +119,7 @@
                                 <a href="../notes/">My Notes</a>
                             </div>
                             <div class="action_div">
-                                <a href="">My Messages</a>
+                                <a href="../messages/">My Messages</a>
                             </div>
                             <div class="action_div">
                                 <a>My Privacy</a>

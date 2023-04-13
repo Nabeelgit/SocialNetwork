@@ -9,6 +9,8 @@
 </head>
 <body>
     <?php
+    include '../resources/status_updater.php';
+    updateStatus('offline');
     session_start();
     session_unset();
     session_write_close();

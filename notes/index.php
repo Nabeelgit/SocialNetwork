@@ -28,7 +28,9 @@
     <?php
     session_start();
     $email = $_SESSION['email'] ?? $_COOKIE['email'] ?? null;
-    $is_logged_in = $email !== null;
+    if($email === null){
+        header('Location: ../login');
+    }
     ?>
     <input type="hidden" value="<?php echo $email?>" id="email">
     <div class="container fill-available" style="display: block;">
@@ -41,41 +43,29 @@
                     <a href="./">search</a>
                     <a>invite</a>
                     <a>help</a>
-                    <?php
-                    if($is_logged_in){
-                        ?>
-                        <a href="../login/">logout</a>
-                        <?php
-                    }
-                    ?>
+                    <a href="../login/">logout</a>
                 </div>
             </div>
         </header>
         <div class="below fill-available" style="margin: 0">
             <div class="forms fill-available" style="max-width: 16rem">
-                <?php
-                if($is_logged_in){
-                    ?>
-                    <div class="my_links">
-                        <div class="action_div">
-                            <a href="../profile/?email=<?php echo urlencode($email)?>">My Profile</a>
-                        </div>
-                        <div class="action_div">
-                            <a href="../friends/">My Friends</a>
-                        </div>
-                        <div class="action_div">
-                            <a href="./">My Notes</a>
-                        </div>
-                        <div class="action_div">
-                            <a href="../messages/">My Messages</a>
-                        </div>
-                        <div class="action_div">
-                            <a>My Privacy</a>
-                        </div>
+                <div class="my_links">
+                    <div class="action_div">
+                        <a href="../profile/?email=<?php echo urlencode($email)?>">My Profile</a>
                     </div>
-                    <?php
-                }
-                ?>
+                    <div class="action_div">
+                        <a href="../friends/">My Friends</a>
+                    </div>
+                    <div class="action_div">
+                        <a href="./">My Notes</a>
+                    </div>
+                    <div class="action_div">
+                        <a href="../messages/">My Messages</a>
+                    </div>
+                    <div class="action_div">
+                        <a>My Privacy</a>
+                    </div>
+                </div>
             </div>
             <div class="other fill-available">
                 <div class="welcome fill-available" style="margin-left: 0">
