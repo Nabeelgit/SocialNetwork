@@ -37,7 +37,7 @@
                 <div class="links">
                     <a href="../login/">login</a>
                     <a href="./">register</a>
-                    <a>help</a>
+                    <a href="../help/help.php">help</a>
                 </div>
             </div>
         </header>
@@ -93,13 +93,13 @@
                 </div>
                 <footer>
                     <div class="footer-links">
-                        <a>about</a>
-                        <a>jobs</a>
-                        <a>advertise</a>
-                        <a>press</a>
-                        <a>terms</a>
-                        <a>privacy</a>
-                        <a>developers</a>
+                        <a href="../help/about.php">about</a>
+                        <a href="../help/jobs.php">jobs</a>
+                        <a href="../help/advertise.php">advertise</a>
+                        <a href="../help/press.php">press</a>
+                        <a href="../help/terms.php">terms</a>
+                        <a href="../help/privacy.php">privacy</a>
+                        <a href="../help/developers.php">developers</a>
                     </div>
                     <p>a (you know who) production</p>
                     <p>The Social Network &copy; <?php echo date('Y')?></p>

@@ -133,6 +133,7 @@ footer {
 .footer-links a {
     text-decoration: none;
     margin-right: 0.6rem;
+    color: #0b59be;
 }
 .warning {
     display: none;

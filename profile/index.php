@@ -84,8 +84,8 @@
                 <div class="links">
                     <a href="../">home</a>
                     <a href="../search">search</a>
-                    <a>invite</a>
-                    <a>help</a>
+                    <a href="../help/invite.php">invite</a>
+                    <a href="../help/help.php">help</a>
                     <?php
                     if($is_logged_in){
                         ?>
@@ -122,7 +122,7 @@
                                 <a href="../messages/">My Messages</a>
                             </div>
                             <div class="action_div">
-                                <a>My Privacy</a>
+                                <a href="../help/privacy.php">My Privacy</a>
                             </div>
                         </div>
                         <?php

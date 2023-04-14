@@ -66,8 +66,8 @@
                 <div class="links">
                     <a href="../">home</a>
                     <a href="./">search</a>
-                    <a>invite</a>
-                    <a>help</a>
+                    <a href="../help/invite.php">invite</a>
+                    <a href="../help/help.php">help</a>
                     <a href="../login/">logout</a>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                         <a href="./">My Messages</a>
                     </div>
                     <div class="action_div">
-                        <a>My Privacy</a>
+                        <a href="../help/privacy.php">My Privacy</a>
                     </div>
                 </div>
             </div>
